@@ -25,11 +25,14 @@ app.post('/register', (req, res) => {
         password: bcrypt.hashSync(req.body.password, 10)
     };
 
+    console.log(obj);
+
     User.create(obj).then( rows => {
-        
+        console.log(rows);
+
         const usr = {
             userId: rows.id,
-            user: rows.name
+            username: rows.username
         };
 
         const token = jwt.sign(usr, process.env.ACCESS_TOKEN_SECRET);
@@ -43,13 +46,13 @@ app.post('/register', (req, res) => {
 
 app.post('/login', (req, res) => {
 
-    Users.findOne({ where: { name: req.body.name } })
+    User.findOne({ where: { username: req.body.username } })
         .then( usr => {
 
             if (bcrypt.compareSync(req.body.password, usr.password)) {
                 const obj = {
                     userId: usr.id,
-                    user: usr.name
+                    username: usr.username
                 };
         
                 const token = jwt.sign(obj, process.env.ACCESS_TOKEN_SECRET);
