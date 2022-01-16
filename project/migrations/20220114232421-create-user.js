@@ -25,6 +25,9 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
+      role: {
+        type: DataTypes.STRING
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE

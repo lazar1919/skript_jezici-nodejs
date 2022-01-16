@@ -28,16 +28,12 @@ app.post('/register', (req, res) => {
     console.log(obj);
 
     User.create(obj).then( rows => {
-        console.log(rows);
-
         const usr = {
             userId: rows.id,
             username: rows.username
         };
 
         const token = jwt.sign(usr, process.env.ACCESS_TOKEN_SECRET);
-
-        console.log(token);
         
         res.json({ token: token });
 
