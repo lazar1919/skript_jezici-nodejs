@@ -33,7 +33,7 @@ route.get('/users', (req, res) => {
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "This user is not admin!"});
             }
         })
         .catch( err => res.status(500).json(err) );
@@ -47,7 +47,7 @@ route.get('/users/:id', (req, res) => {
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "This user is not admin!"});
             }
         })
         .catch( err => res.status(500).json(err) );
@@ -61,7 +61,7 @@ route.post('/users', (req, res) => {
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "This user is not admin!"});
             }
         })
         .catch( err => res.status(500).json(err) );
@@ -85,7 +85,7 @@ route.put('/users/:id', (req, res) => {
                     } )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "This user is not admin!"});
             }
         })
         .catch( err => res.status(500).json(err) );
@@ -103,7 +103,7 @@ route.delete('/users/:id', (req, res) => {
                     } )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "This user is not admin!"});
             }
         })
         .catch( err => res.status(500).json(err) );

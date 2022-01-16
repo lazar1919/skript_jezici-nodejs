@@ -1,5 +1,5 @@
 const express = require('express');
-const { sequelize, Team } = require('../models');
+const { sequelize, Team, User } = require('../models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -61,7 +61,7 @@ route.post('/teams', (req, res) => {
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "This user is not admin!"});
             }
         })
         .catch( err => res.status(500).json(err) );

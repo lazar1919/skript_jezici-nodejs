@@ -1,5 +1,5 @@
 const express = require('express');
-const { sequelize, Comment } = require('../models');
+const { sequelize, Comment, User } = require('../models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -57,7 +57,7 @@ route.post('/comments', (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
             if (usr.role === 'moderator' || usr.role === 'admin') {
-                Comment.create({ userId: req.body.userId, playerId: req.body.playerId, rating: req.body.rating, comment: req.body.comment })
+                Comment.create({ userId: req.user.userId, playerId: req.body.playerId, rating: req.body.rating, comment: req.body.comment })
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
             } else {

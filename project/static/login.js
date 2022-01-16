@@ -19,7 +19,7 @@ function init() {
                     alert(el.msg);
                 } else {
                     document.cookie = `token=${el.token};SameSite=Lax`;
-                    window.location.href = 'login.html';
+                    window.location.href = 'index.html';
                 }
             });
     });

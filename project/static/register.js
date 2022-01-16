@@ -7,7 +7,8 @@ function init() {
             firstName: document.getElementById('firstName').value,
             lastName: document.getElementById('lastName').value,
             username: document.getElementById('username').value,
-            password: document.getElementById('password').value
+            password: document.getElementById('password').value,
+            role: document.getElementById('role').value
         };
 
         fetch('http://127.0.0.1:9000/register', {

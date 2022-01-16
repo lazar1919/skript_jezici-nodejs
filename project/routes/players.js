@@ -1,5 +1,5 @@
 const express = require('express');
-const { sequelize, Player } = require('../models');
+const { sequelize, Player, User } = require('../models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 

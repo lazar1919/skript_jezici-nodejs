@@ -22,7 +22,8 @@ app.post('/register', (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         username: req.body.username,
-        password: bcrypt.hashSync(req.body.password, 10)
+        password: bcrypt.hashSync(req.body.password, 10),
+        role: req.body.role
     };
 
     console.log(obj);
