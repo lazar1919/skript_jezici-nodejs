@@ -18,10 +18,10 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use('/api', users);
-app.use('/api', teams);
-app.use('/api', matches);
-app.use('/api', comments);
+app.use('/admin', users);
+app.use('/admin', teams);
+app.use('/admin', matches);
+app.use('/admin', comments);
 
 function getCookies(req) {
     if (req.headers.cookie == null) return {};
