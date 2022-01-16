@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 require('dotenv').config();
+const Joi = require('joi');
 
 const app = express();
 
@@ -15,6 +16,11 @@ var corsOptions = {
 
 app.use(express.json());
 app.use(cors(corsOptions));
+
+const sema = Joi.object().keys({
+    username: Joi.string().min(4).max(12).required(),
+    password: Joi.string().min(4).required()
+});
 
 
 app.post('/register', (req, res) => {

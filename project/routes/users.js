@@ -3,6 +3,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const Joi = require('joi');
 
 const route = express.Router();
 route.use(express.json());
@@ -25,6 +26,11 @@ function authToken(req, res, next) {
 }
 
 route.use(authToken);
+
+const sema = Joi.object().keys({
+    username: Joi.string().min(4).max(12).required(),
+    password: Joi.string().min(4).required()
+});
 
 route.get('/users', (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
