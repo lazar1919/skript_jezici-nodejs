@@ -6,9 +6,17 @@ const matches = require('./routes/players.js');
 const comments = require('./routes/comments.js');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+
+var corsOptions = {
+    origin: 'http://localhost:8000',
+    optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
 
 app.use('/api', users);
 app.use('/api', teams);

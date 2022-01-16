@@ -3,27 +3,31 @@ function init() {
     const cookies = document.cookie.split('=');
     const token = cookies[cookies.length - 1];
 
-    fetch('http://127.0.0.1:8000/api/comments', {
+    fetch('http://127.0.0.1:8000/api/users', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     })
         .then( res => res.json() )
         .then( data => {
-            const lst = document.getElementById('commentsList');
+            const lst = document.getElementById('userList');
 
             data.forEach( el => {
                 lst.innerHTML += `<li>
                                     ID: ${el.id}, 
-                                    username: ${el.user.username}, 
-                                    Player: ${el.player.firstName} ${el.player.lastName}, 
-                                    Rating: ${el.rating}, 
-                                    Comment: ${el.comment},
+                                    FirstName: ${el.firstName},
+                                    LastName: ${el.lastName},
+                                    username: ${el.username},
+                                    role: ${el.role}
                                     <button onclick="functionDelete()">Delete</button>
                                     <button onclick="functionUpdate()">Update</button>
                                 </li>`;
             });
         });
+
+    document.getElementById('addUser').addEventListener('click', e=> {
+        window.location.href = 'addUser.html';
+    });
 
     document.getElementById('logout').addEventListener('click', e => {
         document.cookie = `token=;SameSite=Lax`;

@@ -1,5 +1,6 @@
 const { sequelize, User } = require('../models');
 const express = require('express');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -57,7 +58,15 @@ route.post('/users', (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
             if (usr.role === 'admin') {
-                User.create({ firstName: req.body.firstName, lastName: req.body.lastName, username: req.body.username, password: req.body.password })
+                const obj = {
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    username: req.body.username,
+                    password: bcrypt.hashSync(req.body.password, 10),
+                    role: req.body.role
+                };
+            
+                User.create(obj)
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
             } else {

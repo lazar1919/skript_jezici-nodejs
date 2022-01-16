@@ -8,8 +8,9 @@ require('dotenv').config();
 const app = express();
 
 var corsOptions = {
-    origin: 'http://127.0.0.1:8000',
-    optionsSuccessStatus: 200
+    origin: 'http://localhost:8000',
+    optionsSuccessStatus: 200,
+    credentials: true
 }
 
 app.use(express.json());
@@ -25,8 +26,6 @@ app.post('/register', (req, res) => {
         password: bcrypt.hashSync(req.body.password, 10),
         role: req.body.role
     };
-
-    console.log(obj);
 
     User.create(obj).then( rows => {
         const usr = {

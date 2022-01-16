@@ -3,22 +3,21 @@ function init() {
     const cookies = document.cookie.split('=');
     const token = cookies[cookies.length - 1];
 
-    fetch('http://127.0.0.1:8000/api/comments', {
+    fetch('http://127.0.0.1:8000/api/teams', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
     })
         .then( res => res.json() )
         .then( data => {
-            const lst = document.getElementById('commentsList');
+            const lst = document.getElementById('teamList');
 
             data.forEach( el => {
                 lst.innerHTML += `<li>
                                     ID: ${el.id}, 
-                                    username: ${el.user.username}, 
-                                    Player: ${el.player.firstName} ${el.player.lastName}, 
-                                    Rating: ${el.rating}, 
-                                    Comment: ${el.comment},
+                                    name: ${el.name}, 
+                                    country: ${el.country}, 
+                                    trainerName: ${el.trainerName}
                                     <button onclick="functionDelete()">Delete</button>
                                     <button onclick="functionUpdate()">Update</button>
                                 </li>`;
