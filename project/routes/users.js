@@ -28,8 +28,11 @@ function authToken(req, res, next) {
 route.use(authToken);
 
 const sema = Joi.object().keys({
+    firstName: Joi.string().min(4).max(16).required(),
+    lastName: Joi.string().min(4).max(16).required(),
     username: Joi.string().min(4).max(12).required(),
-    password: Joi.string().min(4).required()
+    password: Joi.string().min(4).required(),
+    role: Joi.string().min(4).max(16)
 });
 
 route.get('/users', (req, res) => {

@@ -17,9 +17,17 @@ var corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 
-const sema = Joi.object().keys({
+const semaLogin = Joi.object().keys({
     username: Joi.string().min(4).max(12).required(),
     password: Joi.string().min(4).required()
+});
+
+const semaRegister = Joi.object().keys({
+    firstName: Joi.string().min(4).max(16).required(),
+    lastName: Joi.string().min(4).max(16).required(),
+    username: Joi.string().min(4).max(12).required(),
+    password: Joi.string().min(4).required(),
+    role: Joi.string().min(4).max(16)
 });
 
 
@@ -64,7 +72,7 @@ app.post('/login', (req, res) => {
                 res.status(400).json({ msg: "Invalid credentials"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "Invalid credentials"}) );
 });
 
 app.listen({ port: 9000 }, async () => {
