@@ -19,43 +19,9 @@ function init() {
                                     Player: ${el.player.firstName} ${el.player.lastName}, 
                                     Rating: ${el.rating}, 
                                     Comment: ${el.comment},
-                                    <button type="button" id="delete${el.id}">Delete</button>
-                                    <button type="button" id="update${el.id}">Update</button>
+                                    <button type="button" onclick="deleteCom(${el.id})" id="delete${el.id}">Delete</button>
+                                    <button type="button" onclick="updateCom(${el.id})" id="update${el.id}">Update</button>
                                 </li>`;
-                deleteButton = this.document.getElementById(`delete${el.id}`);
-                deleteButton.addEventListener('click', e=> {
-                    fetch(`http://127.0.0.1:8000/admin/comments/${el.id}`, {
-                        method: 'DELETE',
-                        headers: { 
-                            'Authorization': `Bearer ${token}`
-                        },
-                    })
-                        .then( res => res.json() )
-                        .then( el => {
-                            if (el.msg) {
-                                alert(el.msg);
-                            } else {
-                                window.location.href = 'index.html';
-                            }
-                        });
-                    });
-                updateButton = this.document.getElementById(`update${el.id}`);
-                updateButton.addEventListener('click', e=> {
-                    fetch(`http://127.0.0.1:8000/admin/comments/${el.id}`, {
-                        method: 'DELETE',
-                        headers: { 
-                            'Authorization': `Bearer ${token}`
-                        },
-                    })
-                        .then( res => res.json() )
-                        .then( el => {
-                            if (el.msg) {
-                                alert(el.msg);
-                            } else {
-                                window.location.href = 'addComment.html';
-                            }
-                        });
-                    });
             });
         });
 

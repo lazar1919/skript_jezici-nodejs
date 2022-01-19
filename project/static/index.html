@@ -10,6 +10,42 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="comments.js"></script>
         <link href="style.css" type="text/css" rel="stylesheet">
+        <script>
+            const cookies = document.cookie.split('=');
+            const token = cookies[cookies.length - 1];
+            function deleteCom(id) {
+                    fetch('http://127.0.0.1:8000/admin/comments/' + id, {
+                        method: 'DELETE',
+                        headers: { 
+                            'Authorization': `Bearer ${token}`
+                        },
+                    })
+                        .then( res => res.json() )
+                        .then( el => {
+                            if (el.msg) {
+                                alert(el.msg);
+                            } else {
+                                window.location.href = 'index.html';
+                            }
+                        });
+            };
+            function updateCom(id) {
+                fetch('http://127.0.0.1:8000/admin/comments/' + id, {
+                        method: 'DELETE',
+                        headers: { 
+                            'Authorization': `Bearer ${token}`
+                        },
+                    })
+                        .then( res => res.json() )
+                        .then( el => {
+                            if (el.msg) {
+                                alert(el.msg);
+                            } else {
+                                window.location.href = 'addComment.html';
+                            }
+                        });
+            }
+        </script>
     </head>
     <body onload="init()">
         <div class="container">
