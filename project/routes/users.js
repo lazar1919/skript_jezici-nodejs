@@ -46,7 +46,7 @@ route.get('/users', (req, res) => {
                 res.status(403).json({ msg: "This user is not admin!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "This user is not admin!"}) );
 });
 
 route.get('/users/:id', (req, res) => {
@@ -60,7 +60,7 @@ route.get('/users/:id', (req, res) => {
                 res.status(403).json({ msg: "This user is not admin!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "This user is not admin!"}) );
 });
 
 route.post('/users', (req, res) => {
@@ -82,7 +82,7 @@ route.post('/users', (req, res) => {
                 res.status(403).json({ msg: "This user is not admin!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "This user is not admin!"}) );
 });
 
 route.put('/users/:id', (req, res) => {
@@ -106,7 +106,7 @@ route.put('/users/:id', (req, res) => {
                 res.status(403).json({ msg: "This user is not admin!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "This user is not admin!"}) );
 });
 
 route.delete('/users/:id', (req, res) => {
@@ -124,7 +124,7 @@ route.delete('/users/:id', (req, res) => {
                 res.status(403).json({ msg: "This user is not admin!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "This user is not admin!"}) );
 });
 
 

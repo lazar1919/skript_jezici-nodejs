@@ -1,37 +1,26 @@
 const express = require('express');
-const { sequelize, User } = require('./models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const cors = require('cors');
+const path = require('path');
+
+const { sequelize, User } = require('./models');
 require('dotenv').config();
-const Joi = require('joi');
 
-const app = express();
+const authentication_service = express()
 
-var corsOptions = {
-    origin: 'http://localhost:8000',
+
+authentication_service.use(express.json())
+//authentication_service.use(express.urlencoded({extended: true}))
+
+const cors = require('cors');
+const corsOptions = {
+    origin: 'http://localhost:8080',
     optionsSuccessStatus: 200,
     credentials: true
-}
+};
+authentication_service.use(cors(corsOptions))
 
-app.use(express.json());
-app.use(cors(corsOptions));
-
-const semaLogin = Joi.object().keys({
-    username: Joi.string().min(4).max(12).required(),
-    password: Joi.string().min(4).required()
-});
-
-const semaRegister = Joi.object().keys({
-    firstName: Joi.string().min(4).max(16).required(),
-    lastName: Joi.string().min(4).max(16).required(),
-    username: Joi.string().min(4).max(12).required(),
-    password: Joi.string().min(4).required(),
-    role: Joi.string().min(4).max(16)
-});
-
-
-app.post('/register', (req, res) => {
+authentication_service.post('/register', (req, res) => {
 
     const obj = {
         firstName: req.body.firstName,
@@ -54,7 +43,7 @@ app.post('/register', (req, res) => {
     }).catch( err => res.status(500).json(err) );
 });
 
-app.post('/login', (req, res) => {
+authentication_service.post('/login', (req, res) => {
 
     User.findOne({ where: { username: req.body.username } })
         .then( usr => {
@@ -75,6 +64,8 @@ app.post('/login', (req, res) => {
         .catch( err => res.status(500).json({ msg: "Invalid credentials"}) );
 });
 
-app.listen({ port: 9000 }, async () => {
+//authentication_service.use(express.static(path.join(__dirname, 'static')));
+
+authentication_service.listen({ port: 8081 }, async () => {
     await sequelize.authenticate();
 });

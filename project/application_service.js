@@ -1,27 +1,11 @@
 const express = require('express');
-const { sequelize } = require('./models');
+const path = require('path');
 const users = require('./routes/users.js');
 const teams = require('./routes/teams.js');
 const matches = require('./routes/players.js');
 const comments = require('./routes/comments.js');
-const path = require('path');
 const jwt = require('jsonwebtoken');
-const cors = require('cors');
 require('dotenv').config();
-
-const app = express();
-
-var corsOptions = {
-    origin: 'http://localhost:8000',
-    optionsSuccessStatus: 200
-}
-
-app.use(cors(corsOptions));
-
-app.use('/admin', users);
-app.use('/admin', teams);
-app.use('/admin', matches);
-app.use('/admin', comments);
 
 function getCookies(req) {
     if (req.headers.cookie == null) return {};
@@ -53,20 +37,36 @@ function authToken(req, res, next) {
     });
 }
 
-// app.get('/register', (req, res) => {
+
+const application_service = express();
+
+const cors = require('cors');
+const corsOptions = {
+    origin: 'http://localhost:8080',
+    optionsSuccessStatus: 200
+};
+application_service.use(cors(corsOptions))
+
+application_service.use(express.json());
+application_service.use(express.urlencoded({extended: true}));
+
+application_service.use('/admin', users);
+application_service.use('/admin', teams);
+application_service.use('/admin', matches);
+application_service.use('/admin', comments);
+
+// application_service.get('/register', (req, res) => {
 //     res.sendFile('register.html', { root: './static' });
 // });
 
-app.get('/login', (req, res) => {
+application_service.get('/login', (req, res) => {
     res.sendFile('login.html', { root: './static' });
 });
 
-app.get('/', authToken, (req, res) => {
+application_service.get('/', authToken, (req, res) => {
     res.sendFile('index.html', { root: './static' });
 });
 
-app.use(express.static(path.join(__dirname, 'static')));
 
-app.listen({ port: 8000 }, async () => {
-    await sequelize.authenticate();
-});
+application_service.use(express.static(path.join(__dirname, 'static')));
+application_service.listen(8082);

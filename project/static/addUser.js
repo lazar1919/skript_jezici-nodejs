@@ -14,7 +14,7 @@ function init() {
             role: document.getElementById('role').value
         };
 
-        fetch('http://127.0.0.1:8000/admin/users', {
+        fetch('http://127.0.0.1:8080/api/users', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

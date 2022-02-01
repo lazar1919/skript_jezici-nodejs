@@ -12,7 +12,7 @@ function init() {
             trainerName: document.getElementById('trainerName').value
         };
 
-        fetch('http://127.0.0.1:8000/admin/teams', {
+        fetch('http://127.0.0.1:8080/api/teams', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
