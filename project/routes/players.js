@@ -28,7 +28,7 @@ route.use(authToken);
 route.get('/players', (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
-            if (usr.role === 'moderator' || usr.role === 'admin') {
+            if (usr.role === 'moderator' || usr.role === 'admin' || usr.role === 'korisnik') {
                 Player.findAll({ include: ['team'] })
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
@@ -61,7 +61,7 @@ route.post('/players', (req, res) => {
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "This user is not admin or moderator!"});
             }
         })
         .catch( err => res.status(500).json(err) );
@@ -101,7 +101,7 @@ route.delete('/players/:id', (req, res) => {
                     } )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "This user is not admin or moderator!"});
             }
         })
         .catch( err => res.status(500).json(err) );

@@ -26,6 +26,10 @@ function init() {
             });
         });
 
+    document.getElementById('addPlayer').addEventListener('click', e => {
+        window.location.href = 'addPlayer.html';
+    });
+
     document.getElementById('logout').addEventListener('click', e => {
         document.cookie = `token=;SameSite=Lax`;
         window.location.href = 'login.html';

@@ -23,26 +23,29 @@ function authToken(req, res, next) {
     });
 }
 
-route.use(authToken);
-
 route.get('/comments', (req, res) => {
-    User.findOne({ where: { id: req.user.userId } })
-        .then( usr => {
-            if (usr.role === 'moderator' || usr.role === 'admin') {
-                Comment.findAll({ include: ['user', 'player'] })
-                    .then( rows => res.json(rows) )
-                    .catch( err => res.status(500).json(err) );
-            } else {
-                res.status(403).json({ msg: "Invalid credentials"});
-            }
-        })
-        .catch( err => res.status(500).json(err) );
+    Comment.findAll({ include: ['user', 'player'] })
+            .then( rows => res.json(rows) )
+            .catch( err => res.status(500).json(err) );
+    // User.findOne({ where: { id: req.user.userId } })
+    //     .then( usr => {
+    //         if (usr.role === 'moderator' || usr.role === 'admin') {
+    //             Comment.findAll({ include: ['user', 'player'] })
+    //                 .then( rows => res.json(rows) )
+    //                 .catch( err => res.status(500).json(err) );
+    //         } else {
+    //             res.status(403).json({ msg: "Invalid credentials"});
+    //         }
+    //     })
+    //     .catch( err => res.status(500).json(err) );
 });
+
+route.use(authToken);
 
 route.get('/comments/:id', (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
-            if (usr.role === 'moderator' || usr.role === 'admin') {
+            if (usr.role === 'moderator' || usr.role === 'admin' || usr.role === 'korisnik') {
                 Comment.findOne({ where: { id : req.params.id }, include: ['user', 'player'] })
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
@@ -56,7 +59,7 @@ route.get('/comments/:id', (req, res) => {
 route.post('/comments', (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
-            if (usr.role === 'moderator' || usr.role === 'admin') {
+            if (usr.role === 'moderator' || usr.role === 'admin' || usr.role === 'korisnik') {
                 Comment.create({ userId: req.user.userId, playerId: req.body.playerId, rating: req.body.rating, comment: req.body.comment })
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
@@ -70,7 +73,7 @@ route.post('/comments', (req, res) => {
 route.put('/comments/:id', (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
-            if (usr.role === 'moderator' || usr.role === 'admin') {
+            if (usr.role === 'moderator' || usr.role === 'admin' || usr.role === 'korisnik') {
                 Comment.findOne({ where: { id : req.params.id }, include: ['user', 'player'] })
                     .then( comm => {
                         comm.rating = req.body.rating;
@@ -91,7 +94,7 @@ route.put('/comments/:id', (req, res) => {
 route.delete('/comments/:id', (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
-            if (usr.role === 'moderator' || usr.role === 'admin') {
+            if (usr.role === 'moderator' || usr.role === 'admin' || usr.role === 'korisnik') {
                 Comment.findOne({ where: { id : req.params.id }, include: ['user', 'player'] })
                     .then( comm => {
                         comm.destroy()
