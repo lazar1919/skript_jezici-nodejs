@@ -26,17 +26,20 @@ function authToken(req, res, next) {
 route.use(authToken);
 
 route.get('/players', (req, res) => {
-    User.findOne({ where: { id: req.user.userId } })
-        .then( usr => {
-            if (usr.role === 'moderator' || usr.role === 'admin' || usr.role === 'korisnik') {
-                Player.findAll({ include: ['team'] })
-                    .then( rows => res.json(rows) )
-                    .catch( err => res.status(500).json(err) );
-            } else {
-                res.status(403).json({ msg: "Invalid credentials"});
-            }
-        })
+    Player.findAll({ include: ['team'] })
+        .then( rows => res.json(rows) )
         .catch( err => res.status(500).json(err) );
+    // User.findOne({ where: { id: req.user.userId } })
+    //     .then( usr => {
+    //         if (usr.role === 'moderator' || usr.role === 'admin' || usr.role === 'korisnik') {
+    //             Player.findAll({ include: ['team'] })
+    //                 .then( rows => res.json(rows) )
+    //                 .catch( err => res.status(500).json(err) );
+    //         } else {
+    //             res.status(403).json({ msg: "Invalid credentials"});
+    //         }
+    //     })
+    //     .catch( err => res.status(500).json(err) );
 });
 
 route.get('/players/:id', (req, res) => {
@@ -47,10 +50,10 @@ route.get('/players/:id', (req, res) => {
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "You don't have permission for this action!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
 route.post('/players', (req, res) => {
@@ -61,10 +64,10 @@ route.post('/players', (req, res) => {
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "This user is not admin or moderator!"});
+                res.status(403).json({ msg: "You don't have permission for this action!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
 route.put('/players/:id', (req, res) => {
@@ -83,10 +86,10 @@ route.put('/players/:id', (req, res) => {
                     } )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "You don't have permission for this action!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
 route.delete('/players/:id', (req, res) => {
@@ -101,10 +104,10 @@ route.delete('/players/:id', (req, res) => {
                     } )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "This user is not admin or moderator!"});
+                res.status(403).json({ msg: "You don't have permission for this action!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
 

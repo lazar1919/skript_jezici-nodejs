@@ -50,10 +50,10 @@ route.get('/comments/:id', (req, res) => {
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "You don't have permission for this action!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
 route.post('/comments', (req, res) => {
@@ -64,10 +64,10 @@ route.post('/comments', (req, res) => {
                     .then( rows => res.json(rows) )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "You don't have permission for this action!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
 route.put('/comments/:id', (req, res) => {
@@ -85,10 +85,10 @@ route.put('/comments/:id', (req, res) => {
                     } )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "You don't have permission for this action!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
 route.delete('/comments/:id', (req, res) => {
@@ -103,10 +103,10 @@ route.delete('/comments/:id', (req, res) => {
                     } )
                     .catch( err => res.status(500).json(err) );
             } else {
-                res.status(403).json({ msg: "Invalid credentials"});
+                res.status(403).json({ msg: "You don't have permission for this action!"});
             }
         })
-        .catch( err => res.status(500).json(err) );
+        .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
 
