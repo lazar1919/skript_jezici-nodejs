@@ -23,8 +23,6 @@ function authToken(req, res, next) {
     });
 }
 
-route.use(authToken);
-
 route.get('/teams', (req, res) => {
     Team.findAll()
         .then( rows => res.json(rows) )
@@ -42,7 +40,7 @@ route.get('/teams', (req, res) => {
     //     .catch( err => res.status(500).json(err) );
 });
 
-route.get('/teams/:id', (req, res) => {
+route.get('/teams/:id', authToken, (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
             if (usr.role === 'moderator' || usr.role === 'admin') {
@@ -56,7 +54,7 @@ route.get('/teams/:id', (req, res) => {
         .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
-route.post('/teams', (req, res) => {
+route.post('/teams', authToken, (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
             if (usr.role === 'moderator' || usr.role === 'admin') {
@@ -70,7 +68,7 @@ route.post('/teams', (req, res) => {
         .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
-route.put('/teams/:id', (req, res) => {
+route.put('/teams/:id', authToken, (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
             if (usr.role === 'moderator' || usr.role === 'admin') {
@@ -92,7 +90,7 @@ route.put('/teams/:id', (req, res) => {
         .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
-route.delete('/teams/:id', (req, res) => {
+route.delete('/teams/:id', authToken, (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
             if (usr.role === 'moderator' || usr.role === 'admin') {

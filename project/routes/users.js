@@ -25,8 +25,6 @@ function authToken(req, res, next) {
     });
 }
 
-route.use(authToken);
-
 const sema = Joi.object().keys({
     firstName: Joi.string().min(4).max(16).required(),
     lastName: Joi.string().min(4).max(16).required(),
@@ -49,7 +47,7 @@ route.get('/users', (req, res) => {
         .catch( err => res.status(500).json({ msg: "This user is not admin!"}) );
 });
 
-route.get('/users/:id', (req, res) => {
+route.get('/users/:id', authToken, (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
             if (usr.role === 'admin') {
@@ -63,7 +61,7 @@ route.get('/users/:id', (req, res) => {
         .catch( err => res.status(500).json({ msg: "This user is not admin!"}) );
 });
 
-route.post('/users', (req, res) => {
+route.post('/users', authToken, (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
             if (usr.role === 'admin') {
@@ -85,7 +83,7 @@ route.post('/users', (req, res) => {
         .catch( err => res.status(500).json({ msg: "This user is not admin!"}) );
 });
 
-route.put('/users/:id', (req, res) => {
+route.put('/users/:id', authToken, (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
             if (usr.role === 'admin') {
@@ -109,7 +107,7 @@ route.put('/users/:id', (req, res) => {
         .catch( err => res.status(500).json({ msg: "This user is not admin!"}) );
 });
 
-route.delete('/users/:id', (req, res) => {
+route.delete('/users/:id', authToken, (req, res) => {
     User.findOne({ where: { id: req.user.userId } })
         .then( usr => {
             if (usr.role === 'admin') {

@@ -18,7 +18,7 @@ function init() {
             comment: document.getElementById('comment').value
         };
 
-        fetch('http://127.0.0.1:8080/api/comments', {
+        fetch('http://127.0.0.1:8088/api/comments', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

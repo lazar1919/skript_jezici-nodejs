@@ -3,7 +3,12 @@ function init() {
     const cookies = document.cookie.split('=');
     const token = cookies[cookies.length - 1];
 
-    fetch('http://127.0.0.1:8080/api/users', {
+    if (token == null) {
+        res.status(403).json({ msg: "kkkkkkkkkkk"});
+        return;
+    }
+
+    fetch('http://127.0.0.1:8088/api/users', {
         headers: {
             'Authorization': `Bearer ${token}`
         }

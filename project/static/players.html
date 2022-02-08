@@ -14,7 +14,7 @@
             const cookies = document.cookie.split('=');
             const token = cookies[cookies.length - 1];
             function deletePlayer(id) {
-                fetch('http://127.0.0.1:8080/api/players/' + id, {
+                fetch('http://127.0.0.1:8088/api/players/' + id, {
                         method: 'DELETE',
                         headers: { 
                             'Authorization': `Bearer ${token}`
@@ -30,7 +30,7 @@
                         });
             };
             function updatePlayer(id) {
-                fetch('http://127.0.0.1:8080/api/players/' + id, {
+                fetch('http://127.0.0.1:8088/api/players/' + id, {
                         method: 'DELETE',
                         headers: { 
                             'Authorization': `Bearer ${token}`

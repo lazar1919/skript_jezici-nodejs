@@ -15,7 +15,7 @@ function init() {
             number: document.getElementById('number').value
         };
 
-        fetch('http://127.0.0.1:8080/api/players', {
+        fetch('http://127.0.0.1:8088/api/players', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

@@ -42,7 +42,7 @@ const application_service = express();
 
 const cors = require('cors');
 const corsOptions = {
-    origin: 'http://localhost:8080',
+    origin: 'http://localhost:8088',
     optionsSuccessStatus: 200
 };
 application_service.use(cors(corsOptions))

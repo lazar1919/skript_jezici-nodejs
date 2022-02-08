@@ -1,5 +1,5 @@
 function init() {
-    fetch('http://127.0.0.1:8080/api/comments', {
+    fetch('http://127.0.0.1:8088/api/comments', {
         headers: {
             'Content-Type': 'application/json'
         }

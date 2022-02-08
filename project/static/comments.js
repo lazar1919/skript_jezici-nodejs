@@ -3,11 +3,7 @@ function init() {
     const cookies = document.cookie.split('=');
     const token = cookies[cookies.length - 1];
 
-    fetch('http://127.0.0.1:8080/api/comments', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+    fetch('http://127.0.0.1:8088/api/comments')
         .then( res => res.json() )
         .then( data => {
             const lst = document.getElementById('commentsList');
