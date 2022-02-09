@@ -40,18 +40,21 @@ route.get('/players', (req, res) => {
     //     .catch( err => res.status(500).json(err) );
 });
 
-route.get('/players/:id', authToken, (req, res) => {
-    User.findOne({ where: { id: req.user.userId } })
-        .then( usr => {
-            if (usr.role === 'moderator' || usr.role === 'admin') {
-                Player.findOne({ where: { id : req.params.id }, include: ['team'] })
-                    .then( rows => res.json(rows) )
-                    .catch( err => res.status(500).json(err) );
-            } else {
-                res.status(403).json({ msg: "You don't have permission for this action!"});
-            }
-        })
-        .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
+route.get('/players/:id', (req, res) => {
+    Player.findOne({ where: { id : req.params.id }, include: ['team'] })
+        .then( rows => res.json(rows) )
+        .catch( err => res.status(500).json(err) );
+    // User.findOne({ where: { id: req.user.userId } })
+    //     .then( usr => {
+    //         if (usr.role === 'moderator' || usr.role === 'admin') {
+    //             Player.findOne({ where: { id : req.params.id }, include: ['team'] })
+    //                 .then( rows => res.json(rows) )
+    //                 .catch( err => res.status(500).json(err) );
+    //         } else {
+    //             res.status(403).json({ msg: "You don't have permission for this action!"});
+    //         }
+    //     })
+    //     .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
 route.post('/players', authToken, (req, res) => {

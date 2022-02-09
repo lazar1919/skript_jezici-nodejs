@@ -40,18 +40,21 @@ route.get('/comments', (req, res) => {
     //     .catch( err => res.status(500).json(err) );
 });
 
-route.get('/comments/:id', authToken, (req, res) => {
-    User.findOne({ where: { id: req.user.userId } })
-        .then( usr => {
-            if (usr.role === 'moderator' || usr.role === 'admin' || usr.role === 'korisnik') {
-                Comment.findOne({ where: { id : req.params.id }, include: ['user', 'player'] })
-                    .then( rows => res.json(rows) )
-                    .catch( err => res.status(500).json(err) );
-            } else {
-                res.status(403).json({ msg: "You don't have permission for this action!"});
-            }
-        })
-        .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
+route.get('/comments/:id', (req, res) => {
+    Comment.findOne({ where: { id : req.params.id }, include: ['user', 'player'] })
+        .then( rows => res.json(rows) )
+        .catch( err => res.status(500).json(err) );
+    // User.findOne({ where: { id: req.user.userId } })
+    //     .then( usr => {
+    //         if (usr.role === 'moderator' || usr.role === 'admin' || usr.role === 'korisnik') {
+    //             Comment.findOne({ where: { id : req.params.id }, include: ['user', 'player'] })
+    //                 .then( rows => res.json(rows) )
+    //                 .catch( err => res.status(500).json(err) );
+    //         } else {
+    //             res.status(403).json({ msg: "You don't have permission for this action!"});
+    //         }
+    //     })
+    //     .catch( err => res.status(500).json({ msg: "You don't have permission for this action!"}) );
 });
 
 route.post('/comments', authToken, (req, res) => {

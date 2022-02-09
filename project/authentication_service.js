@@ -14,7 +14,7 @@ authentication_service.use(express.json())
 
 const cors = require('cors');
 const corsOptions = {
-    origin: 'http://localhost:8088',
+    origin: ['http://localhost:8088', 'http://localhost:8080'],
     optionsSuccessStatus: 200,
     credentials: true
 };

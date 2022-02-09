@@ -10,7 +10,7 @@ const cors = require('cors');
 const rest_service = express();
 
 var corsOptions = {
-    origin: 'http://localhost:8088',
+    origin: ['http://localhost:8088', 'http://localhost:8080'],
     optionsSuccessStatus: 200,
     credentials: true
 }
