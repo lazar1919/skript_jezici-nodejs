@@ -31,7 +31,7 @@ function init() {
                 if (el.msg) {
                     alert(el.msg);
                 } else {
-                    window.location.href = 'index.html';
+                    window.location.href = 'firstPage.html';
                 }
             });
     });
